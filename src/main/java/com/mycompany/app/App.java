@@ -1,9 +1,10 @@
 package com.mycompany.app;
 
 import static spark.Spark.get;
-import static spark.Spark.post;
 import static spark.Spark.port;
+import static spark.Spark.post;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,27 +12,8 @@ import java.util.Map;
 import spark.ModelAndView;
 import spark.template.mustache.MustacheTemplateEngine;
 
-public class App {
-    
-    public static boolean method(Integer[] intArr1, Integer[] intArr2, String[] strArr, int k){
-
-        // StrLisit lexicographic olarak sortlanacak
-        // intList'lerde 2'sininde k'th order statistic bulunacak quickselect() ile if 1 >= 2 return true else return false
-
-        mergeSort(strArr);
-
-        int number1 = quickSelect(intArr1, k);
-        int number2 = quickSelect(intArr2, k);
-
-        if(number1 >= number2){
-
-            return true;
-        }
-        else{
-            
-            return false;
-        }
-    }
+public class App
+{
 
     public static Integer quickSelect(Integer[] arr, int k){     // k'th smallest  
 
@@ -145,53 +127,76 @@ public class App {
             i++; r++;
         }
     }
+
+    public static boolean method(Integer[] intArr1, Integer[] intArr2, String[] strArr, int k){
+
+        // StrLisit lexicographic olarak sortlanacak
+        // intList'lerde 2'sininde k'th order statistic bulunacak quickselect() ile if 1 >= 2 return true else return false
+
+        mergeSort(strArr);
+
+        int number1 = quickSelect(intArr1, k);
+        int number2 = quickSelect(intArr2, k);
+
+        if(number1 >= number2){
+
+            return true;
+        }
+        else{
+            
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
 
         get("/", (req, res) -> "Hello, World");
 
-
         post("/compute", (req, res) -> {
-            String input1 = req.queryParams("intArr1");
-            String input2 = req.queryParams("intArr2");
-            String input3 = req.queryParams("strArr");
-            String input4 = req.queryParams("k");
-        
-            Integer[] intArr1 = Arrays.stream(input1.split(",")).map(Integer::parseInt).toArray(Integer[]::new);
-            Integer[] intArr2 = Arrays.stream(input2.split(",")).map(Integer::parseInt).toArray(Integer[]::new);
-            String[] strArr = input3.split(",");
-            int k = Integer.parseInt(input4);
-        
-            boolean result = method(intArr1, intArr2, strArr, k);
-        
-            Map<String, String> map = new HashMap<>();
-            map.put("result", String.valueOf(result)); // Convert boolean to string
+
+            String list = req.queryParams("list");
+            java.util.Scanner sc1 = new java.util.Scanner(list);
+            sc1.useDelimiter("[;\r\n]+");
+            java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
+            while (sc1.hasNext())
+            {
+                int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
+                inputList.add(value);
+            }
+            System.out.println(inputList);
+
+            String list2 = req.queryParams("list2");
+            java.util.Scanner sc2 = new java.util.Scanner(list2);
+            sc2.useDelimiter("[;\r\n]+");
+            java.util.ArrayList<Integer> inputList2 = new java.util.ArrayList<>();
+            while (sc2.hasNext())
+            {
+                int value = Integer.parseInt(sc2.next().replaceAll("\\s",""));
+                inputList2.add(value);
+            }
+            System.out.println(inputList2);
+
+            String str1 = req.queryParams("str1").replaceAll("\\s","");
+            String str2 = req.queryParams("str2").replaceAll("\\s","");
+
+            String k = req.queryParams("k").replaceAll("\\s","");
+            int k_value = Integer.parseInt(k);
+
+            boolean result = App.method(inputList.toArray(new Integer[0]), inputList2.toArray(new Integer[0]), new String[]{str1, str2}, k_value);
+
+            Map map = new HashMap();
+            map.put("result", result);
             return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
 
-        // post("/compute", (req, res) -> {
-        //     String input1 = req.queryParams("intArr1");
-        //     String input2 = req.queryParams("intArr2");
-        //     String input3 = req.queryParams("strArr");
-        //     String input4 = req.queryParams("k");
-
-        //     Integer[] intArr1 = Arrays.stream(input1.split(",")).map(Integer::parseInt).toArray(Integer[]::new);
-        //     Integer[] intArr2 = Arrays.stream(input2.split(",")).map(Integer::parseInt).toArray(Integer[]::new);
-        //     String[] strArr = input3.split(",");
-        //     int k = Integer.parseInt(input4);
-
-        //     boolean result = method(intArr1, intArr2, strArr, k);
-
-        //     Map map = new HashMap();
-        //     map.put("result", result);
-        //     return new ModelAndView(map, "compute.mustache");
-        // }, new MustacheTemplateEngine());
-
-        // get("/compute", (rq, rs) -> {
-        //     Map map = new HashMap();
-        //     map.put("result", "not computed yet!");
-        //     return new ModelAndView(map, "compute.mustache");
-        // }, new MustacheTemplateEngine());
+        get("/compute",
+                (rq, rs) -> {
+                    Map map = new HashMap();
+                    map.put("result", "not computed yet!");
+                    return new ModelAndView(map, "compute.mustache");
+                },
+                new MustacheTemplateEngine());
     }
 
     static int getHerokuAssignedPort() {

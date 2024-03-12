@@ -1,23 +1,27 @@
 <title>My application deployed automatically</title>
-<h1>Method Execution</h1>
+<h1>Method Result</h1>
 Your result is {{result}}
 
 <p>
-    This app sorts the string array lexicographically, finds the k'th order statistic of two int arrays and compares them
+    This app sorts the strings lexicographically and finds the k'th order statistic in the integer arrays.
+    If the k'th order statistic of the first array is greater than or equal to that of the second array, it returns true. Otherwise, it returns false.
 </p>
 
 <form action="compute" method="post">
-    <label for="intArr1">Integer Array 1:</label>
-    <textarea id="intArr1" name="intArr1" rows="10" cols="10"></textarea>
+    <label for="list">List1:</label>
+    <textarea id="list" name="list" rows="10" cols="10"></textarea>
 
-    <label for="intArr2">Integer Array 2:</label>
-    <textarea id="intArr2" name="intArr2" rows="10" cols="10"></textarea>
+    <label for="list2">List2:</label>
+    <textarea id="list2" name="list2" rows="10" cols="10"></textarea>
 
-    <label for="strArr">String Array:</label>
-    <textarea id="strArr" name="strArr" rows="10" cols="10"></textarea>
+    <label for="str1">String 1:</label>
+    <textarea id="str1" name="str1" rows="10" cols="10"></textarea>
 
-    <label for="k">K (Order Statistic):</label>
-    <textarea id="k" name="k" rows="1" cols="10"></textarea>
+    <label for="str2">String 2:</label>
+    <textarea id="str2" name="str2" rows="10" cols="10"></textarea>
+
+    <label for="k">K:</label>
+    <textarea id="k" name="k" rows="10" cols="10"></textarea>
 
     <br>
     <input type="submit">
