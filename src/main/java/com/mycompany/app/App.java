@@ -150,29 +150,48 @@ public class App {
 
         get("/", (req, res) -> "Hello, World");
 
+
         post("/compute", (req, res) -> {
             String input1 = req.queryParams("intArr1");
             String input2 = req.queryParams("intArr2");
             String input3 = req.queryParams("strArr");
             String input4 = req.queryParams("k");
-
+        
             Integer[] intArr1 = Arrays.stream(input1.split(",")).map(Integer::parseInt).toArray(Integer[]::new);
             Integer[] intArr2 = Arrays.stream(input2.split(",")).map(Integer::parseInt).toArray(Integer[]::new);
             String[] strArr = input3.split(",");
             int k = Integer.parseInt(input4);
-
+        
             boolean result = method(intArr1, intArr2, strArr, k);
-
-            Map map = new HashMap();
-            map.put("result", result);
+        
+            Map<String, String> map = new HashMap<>();
+            map.put("result", String.valueOf(result)); // Convert boolean to string
             return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
 
-        get("/compute", (rq, rs) -> {
-            Map map = new HashMap();
-            map.put("result", "not computed yet!");
-            return new ModelAndView(map, "compute.mustache");
-        }, new MustacheTemplateEngine());
+        // post("/compute", (req, res) -> {
+        //     String input1 = req.queryParams("intArr1");
+        //     String input2 = req.queryParams("intArr2");
+        //     String input3 = req.queryParams("strArr");
+        //     String input4 = req.queryParams("k");
+
+        //     Integer[] intArr1 = Arrays.stream(input1.split(",")).map(Integer::parseInt).toArray(Integer[]::new);
+        //     Integer[] intArr2 = Arrays.stream(input2.split(",")).map(Integer::parseInt).toArray(Integer[]::new);
+        //     String[] strArr = input3.split(",");
+        //     int k = Integer.parseInt(input4);
+
+        //     boolean result = method(intArr1, intArr2, strArr, k);
+
+        //     Map map = new HashMap();
+        //     map.put("result", result);
+        //     return new ModelAndView(map, "compute.mustache");
+        // }, new MustacheTemplateEngine());
+
+        // get("/compute", (rq, rs) -> {
+        //     Map map = new HashMap();
+        //     map.put("result", "not computed yet!");
+        //     return new ModelAndView(map, "compute.mustache");
+        // }, new MustacheTemplateEngine());
     }
 
     static int getHerokuAssignedPort() {
