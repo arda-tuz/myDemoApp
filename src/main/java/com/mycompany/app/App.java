@@ -4,7 +4,6 @@ import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.post;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -155,6 +154,7 @@ public class App
 
         post("/compute", (req, res) -> {
 
+            //---------------------------------------------------------------------------------------------------
             String list = req.queryParams("list");
             java.util.Scanner sc1 = new java.util.Scanner(list);
             sc1.useDelimiter("[;\r\n]+");
@@ -166,6 +166,7 @@ public class App
             }
             System.out.println(inputList);
 
+            //---------------------------------------------------------------------------------------------------
             String list2 = req.queryParams("list2");
             java.util.Scanner sc2 = new java.util.Scanner(list2);
             sc2.useDelimiter("[;\r\n]+");
@@ -176,14 +177,15 @@ public class App
                 inputList2.add(value);
             }
             System.out.println(inputList2);
-
-            String str1 = req.queryParams("str1").replaceAll("\\s","");
-            String str2 = req.queryParams("str2").replaceAll("\\s","");
-
+            //---------------------------------------------------------------------------------------------------
+            String strList = req.queryParams("strList");
+            String[] strArray = strList.split("\\s+");
+            System.out.println(Arrays.toString(strArray));
+            //---------------------------------------------------------------------------------------------------
             String k = req.queryParams("k").replaceAll("\\s","");
             int k_value = Integer.parseInt(k);
-
-            boolean result = App.method(inputList.toArray(new Integer[0]), inputList2.toArray(new Integer[0]), new String[]{str1, str2}, k_value);
+            //---------------------------------------------------------------------------------------------------
+            boolean result = App.method(inputList.toArray(new Integer[0]), inputList2.toArray(new Integer[0]), strArray, k_value);
 
             Map map = new HashMap();
             map.put("result", result);
