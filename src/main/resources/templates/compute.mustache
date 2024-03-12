@@ -3,22 +3,28 @@
 Your result is {{result}}
 
 <p>
-    This app sorts the strings lexicographically and finds the k'th order statistic in the integer arrays.
+    This app sorts the strings lexicographically using mergesort and finds the k'th order statistic in the integer arrays using quickselect algorithms respectively.
     If the k'th order statistic of the first array is greater than or equal to that of the second array, it returns true. Otherwise, it returns false.
+
+    (Note that it does not print the lexicographically sorted string array since the method was planned to change the array itself)
+
+    CAUTION: in the first 2 forms enter only integer seperated values like this : "1;2;3;4;5" and "6;7;8;9;10"
+    CAUTION: in the third form enter only space seperated string values like this : "str1 str2 str3 str4 str5 str6 str7"
+    CAUTION: in the last formm enter only just one integer like this : "5"
 </p>
 
 <form action="compute" method="post">
     <label for="list">List1:</label>
-    <textarea id="list" name="list" rows="10" cols="10"></textarea>
+    <textarea id="list" name="list" rows="10" cols="30"></textarea>
 
     <label for="list2">List2:</label>
-    <textarea id="list2" name="list2" rows="10" cols="10"></textarea>
+    <textarea id="list2" name="list2" rows="10" cols="30"></textarea>
 
     <label for="strList">String list:</label>
-    <textarea id="strList" name="strList" rows="10" cols="10"></textarea>
+    <textarea id="strList" name="strList" rows="10" cols="30"></textarea>
 
     <label for="k">K:</label>
-    <textarea id="k" name="k" rows="10" cols="10"></textarea>
+    <textarea id="k" name="k" rows="10" cols="30"></textarea>
 
     <br>
     <input type="submit">
