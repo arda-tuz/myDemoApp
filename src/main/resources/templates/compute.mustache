@@ -1,0 +1,24 @@
+<title>My application deployed automatically</title>
+<h1>Method Execution</h1>
+Your result is {{result}}
+
+<p>
+    This app sorts the string array lexicographically, finds the k'th order statistic of two int arrays and compares them
+</p>
+
+<form action="compute" method="post">
+    <label for="intArr1">Integer Array 1:</label>
+    <textarea id="intArr1" name="intArr1" rows="10" cols="10"></textarea>
+
+    <label for="intArr2">Integer Array 2:</label>
+    <textarea id="intArr2" name="intArr2" rows="10" cols="10"></textarea>
+
+    <label for="strArr">String Array:</label>
+    <textarea id="strArr" name="strArr" rows="10" cols="10"></textarea>
+
+    <label for="k">K (Order Statistic):</label>
+    <textarea id="k" name="k" rows="1" cols="10"></textarea>
+
+    <br>
+    <input type="submit">
+</form>
